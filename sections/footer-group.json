@@ -58,7 +58,7 @@
               "type": "text",
               "name": "Heading",
               "settings": {
-                "text": "<h2>Join our email list</h2>",
+                "text": "<h2>Get notified when new camps drop</h2>",
                 "width": "100%",
                 "max_width": "normal",
                 "alignment": "left",
@@ -84,7 +84,7 @@
               "type": "text",
               "name": "Text",
               "settings": {
-                "text": "<p>Get exclusive deals and early access to new products.</p>",
+                "text": "<p>Be the first to know when your camp's toy launches. We'll email you — no spam, just camp updates.</p>",
                 "width": "100%",
                 "max_width": "normal",
                 "alignment": "left",
