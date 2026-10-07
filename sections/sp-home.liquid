@@ -73,6 +73,32 @@
   }
   .sp-btn-yellow:hover { transform: translateY(-2px); }
 
+  /* ─── UNDER-CONSTRUCTION BANNER ─── */
+  .sp-construction {
+    background: linear-gradient(135deg, #fff3cf 0%, #ffe9a8 100%);
+    border-bottom: 1.5px solid #f0d878;
+    padding: 18px 20px;
+    text-align: center;
+  }
+  .sp-construction-inner {
+    max-width: 920px; margin: 0 auto;
+    display: flex; align-items: center; justify-content: center;
+    gap: 16px; flex-wrap: wrap;
+  }
+  .sp-construction-text {
+    font-size: 14px; color: #7a5c12; font-weight: 600; line-height: 1.5;
+  }
+  .sp-construction-text strong { color: #5f4708; font-weight: 800; }
+  .sp-construction-btn {
+    display: inline-flex; align-items: center; gap: 6px;
+    background: var(--sp-green); color: #fff;
+    font-weight: 800; font-size: 13px; letter-spacing: 0.02em;
+    padding: 10px 20px; border-radius: 999px;
+    white-space: nowrap;
+    transition: transform .15s ease, box-shadow .15s ease;
+  }
+  .sp-construction-btn:hover { transform: translateY(-1px); box-shadow: 0 6px 16px rgba(26,79,48,.25); }
+
   /* ─── HERO ─── */
   .sp-hero {
     background: linear-gradient(165deg, #faf8f3 0%, #f0ebe0 60%, #e8efe5 100%);
@@ -288,6 +314,18 @@
 
 <div class="sp-home">
 
+  {%- comment -%}── UNDER CONSTRUCTION ─{%- endcomment -%}
+  <section class="sp-construction">
+    <div class="sp-construction-inner">
+      <div class="sp-construction-text">
+        🚧 <strong>This shop is still being built.</strong> Everything here is a preview — toys are coming soon.
+      </div>
+      <a class="sp-construction-btn" href="{{ section.settings.fundraiser_link | default: 'https://thesqueezeproject.com' }}">
+        Visit our main site →
+      </a>
+    </div>
+  </section>
+
   {%- comment -%}── HERO ─{%- endcomment -%}
   <section class="sp-hero">
     <div class="sp-wrap sp-hero-inner">
@@ -305,7 +343,7 @@
           {{ section.settings.hero_cta_text | default: 'Shop the camps' }}
         </a>
         {%- if section.settings.hero_cta2_text != blank -%}
-          <a href="{{ section.settings.hero_cta2_link | default: '#camps' }}" class="sp-btn sp-btn-ghost">
+          <a href="{{ section.settings.hero_cta2_link | default: 'https://thesqueezeproject.com' }}" class="sp-btn sp-btn-ghost">
             {{ section.settings.hero_cta2_text }} →
           </a>
         {%- endif -%}
@@ -426,6 +464,9 @@
   "tag": "section",
   "class": "section",
   "settings": [
+    { "type": "header", "content": "Under-construction banner" },
+    { "type": "url", "id": "fundraiser_link", "label": "Main site / fundraiser link" },
+
     { "type": "header", "content": "Hero" },
     { "type": "text", "id": "hero_pill", "label": "Pill text", "default": "Now taking pre-orders" },
     { "type": "textarea", "id": "hero_heading", "label": "Heading (use <em> for accent)", "default": "Squeeze toys, made for <em>camp</em>." },
