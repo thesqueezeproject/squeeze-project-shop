@@ -139,17 +139,18 @@
   .sp-camps { padding: clamp(64px, 8vw, 110px) 0; background: #fff; }
   .sp-camps .sp-h2, .sp-camps .sp-kicker { text-align: center; display: block; margin-left: auto; margin-right: auto; }
   .sp-camps-grid {
-    display: grid; gap: 18px; margin-top: 44px;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    display: grid; gap: 16px; margin-top: 44px;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
-  @media (max-width: 720px) { .sp-camps-grid { grid-template-columns: 1fr; } }
+  @media (max-width: 920px) { .sp-camps-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  @media (max-width: 560px) { .sp-camps-grid { grid-template-columns: 1fr; } }
   .sp-camp {
-    position: relative; display: block; border-radius: 28px;
-    padding: 36px 32px 32px; overflow: hidden;
-    min-height: 360px;
+    position: relative; display: flex; border-radius: 24px;
+    padding: 30px 26px 26px; overflow: hidden;
+    min-height: 300px;
     color: #fff;
     transition: transform .25s ease, box-shadow .25s ease;
-    display: flex; flex-direction: column; justify-content: space-between;
+    flex-direction: column; justify-content: space-between;
   }
   .sp-camp:hover { transform: translateY(-4px); box-shadow: 0 20px 50px rgba(0,0,0,.18); }
   .sp-camp-emoji {
@@ -176,8 +177,70 @@
     font-size: 10px; font-weight: 800; letter-spacing: 0.12em;
     text-transform: uppercase; padding: 6px 12px; border-radius: 999px;
   }
-  .sp-camp.ihc      { background: linear-gradient(160deg, #4A6FA5 0%, #2c4773 100%); }
-  .sp-camp.pontiac  { background: linear-gradient(160deg, #CC0000 0%, #8a0000 100%); }
+  .sp-camp-emoji { font-size: 76px; margin: 8px 0 18px; }
+  .sp-camp-name { font-size: 27px; }
+  /* Coming-soon cards: still colorful but clearly not yet shoppable */
+  .sp-camp.soon { opacity: .92; }
+  .sp-camp.soon::after {
+    content: ''; position: absolute; inset: 0;
+    background: rgba(10, 20, 15, .28);
+    pointer-events: none;
+  }
+  .sp-camp.soon:hover { transform: none; box-shadow: none; }
+  .sp-camp .sp-camp-inner { position: relative; z-index: 1; }
+  .sp-camp-badge.soon-badge {
+    background: rgba(0,0,0,.4); color: #fff;
+    border: 1px solid rgba(255,255,255,.4);
+  }
+
+  /* ─── PRODUCT GRID ─── */
+  .sp-prod-grid {
+    display: grid; gap: 20px; margin-top: 44px;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    max-width: 760px; margin-left: auto; margin-right: auto;
+  }
+  @media (max-width: 560px) { .sp-prod-grid { grid-template-columns: 1fr; } }
+  .sp-prod-card {
+    display: flex; flex-direction: column;
+    background: #fff; border: 1.5px solid var(--sp-border);
+    border-radius: 22px; overflow: hidden;
+    transition: transform .2s ease, box-shadow .2s ease;
+  }
+  .sp-prod-card:hover { transform: translateY(-4px); box-shadow: 0 18px 44px rgba(0,0,0,.12); }
+  .sp-prod-media {
+    position: relative; aspect-ratio: 1/1; background: var(--sp-cream-2);
+    display: flex; align-items: center; justify-content: center; overflow: hidden;
+  }
+  .sp-prod-media img { width: 100%; height: 100%; object-fit: cover; }
+  .sp-prod-fallback { font-size: 92px; filter: drop-shadow(0 8px 18px rgba(0,0,0,.12)); }
+  .sp-prod-badge {
+    position: absolute; top: 14px; left: 14px;
+    background: var(--sp-gold); color: var(--sp-green);
+    font-size: 10px; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase;
+    padding: 6px 12px; border-radius: 999px;
+  }
+  .sp-prod-info { padding: 20px 20px 22px; display: flex; flex-direction: column; gap: 4px; flex: 1; }
+  .sp-prod-title {
+    font-family: Fraunces, 'Times New Roman', serif;
+    font-size: 20px; font-weight: 700; color: var(--sp-green); margin: 0; line-height: 1.2;
+  }
+  .sp-prod-meta { font-size: 13px; color: var(--sp-muted); }
+  .sp-prod-foot {
+    margin-top: 14px; display: flex; align-items: center; justify-content: space-between;
+  }
+  .sp-prod-price { font-size: 20px; font-weight: 800; color: var(--sp-ink); }
+  .sp-prod-btn {
+    background: var(--sp-green); color: #fff;
+    font-size: 13px; font-weight: 800; padding: 10px 18px; border-radius: 999px;
+    transition: background .15s ease;
+  }
+  .sp-prod-card:hover .sp-prod-btn { background: var(--sp-green-2); }
+  .sp-soon-head { text-align: center; margin-top: 72px; }
+  .sp-soon-title {
+    font-family: Fraunces, 'Times New Roman', serif;
+    font-size: clamp(22px, 3vw, 30px); font-weight: 700; color: var(--sp-green);
+    margin: 4px 0 0;
+  }
 
   /* ─── MISSION BAND ─── */
   .sp-mission {
@@ -334,12 +397,12 @@
           <span class="sp-dot"></span>{{ section.settings.hero_pill }}
         </span>
       {%- endif -%}
-      <h1 class="sp-h1">{{ section.settings.hero_heading | default: 'Squeeze toys, made for <em>camp</em>.' }}</h1>
+      <h1 class="sp-h1">{{ section.settings.hero_heading | default: 'The squishy everyone wants. <em>Made for camp.</em>' }}</h1>
       {%- if section.settings.hero_lede != blank -%}
         <p class="sp-lede">{{ section.settings.hero_lede }}</p>
       {%- endif -%}
       <div class="sp-hero-buttons">
-        <a href="{{ section.settings.hero_cta_link | default: '/collections/all' }}" class="sp-btn sp-btn-primary">
+        <a href="{{ section.settings.hero_cta_link | default: '#shop' }}" class="sp-btn sp-btn-primary">
           {{ section.settings.hero_cta_text | default: 'Shop the camps' }}
         </a>
         {%- if section.settings.hero_cta2_text != blank -%}
@@ -354,30 +417,63 @@
     </div>
   </section>
 
-  {%- comment -%}── CAMP COLLECTIONS ─{%- endcomment -%}
-  <section class="sp-camps" id="camps">
+  {%- comment -%}── SHOP (real products) ─{%- endcomment -%}
+  <section class="sp-camps" id="shop">
     <div class="sp-wrap">
-      <span class="sp-kicker">By Camp</span>
-      <h2 class="sp-h2">Pick your camp.</h2>
+      <span class="sp-kicker">Shop now</span>
+      <h2 class="sp-h2">Sugar squishies, camp by camp.</h2>
+      <p class="sp-lede" style="text-align:center;">Pick your camp. Original or Glitter. $10 — and every squishy sends a kid to camp.</p>
+
+      {%- if section.settings.shop_collection != blank -%}
+        {%- assign shop = section.settings.shop_collection -%}
+      {%- else -%}
+        {%- assign shop = collections['shop'] -%}
+      {%- endif -%}
+      <div class="sp-prod-grid">
+        {%- for product in shop.products -%}
+          <a class="sp-prod-card" href="{{ product.url }}">
+            <div class="sp-prod-media">
+              {%- if product.featured_image -%}
+                <img src="{{ product.featured_image | image_url: width: 640 }}" alt="{{ product.title | escape }}" loading="lazy" width="640" height="640">
+              {%- else -%}
+                <span class="sp-prod-fallback">🧸</span>
+              {%- endif -%}
+              <span class="sp-prod-badge">Pre-order</span>
+            </div>
+            <div class="sp-prod-info">
+              <h3 class="sp-prod-title">{{ product.title }}</h3>
+              <div class="sp-prod-meta">Original + Glitter</div>
+              <div class="sp-prod-foot">
+                <span class="sp-prod-price">{{ product.price | money }}</span>
+                <span class="sp-prod-btn">Shop →</span>
+              </div>
+            </div>
+          </a>
+        {%- else -%}
+          <p class="sp-lede" style="grid-column:1/-1;text-align:center;">Products are being added — check back soon.</p>
+        {%- endfor -%}
+      </div>
+
+      {%- comment -%}── Coming-soon camps ─{%- endcomment -%}
+      <div class="sp-soon-head">
+        <span class="sp-kicker">Dropping all summer</span>
+        <h3 class="sp-soon-title">More camps coming soon.</h3>
+      </div>
       <div class="sp-camps-grid">
-        <a class="sp-camp ihc" href="{{ section.settings.ihc_link | default: '/collections/camp-ihc' }}">
-          <span class="sp-camp-badge">Pre-order · Ships July</span>
-          <span class="sp-camp-emoji">🏕️</span>
-          <div>
-            <h3 class="sp-camp-name">Camp IHC</h3>
-            <div class="sp-camp-sub">Original + Glitter · $10</div>
-            <span class="sp-camp-cta">Shop IHC →</span>
+        {%- comment -%} fields: name | gradient-from | gradient-to {%- endcomment -%}
+        {%- assign camp_rows = "Camp Wah-Nee|#8B1A1A|#5a0f0f,Camp Westmont|#2d4480|#1a2744,Tyler Hill Camp|#1e3a8a|#122456,Camp Towanda|#2f6f6f|#1d4747,Timber Lake Camp|#1f5d2c|#0f3d1c" | split: "," -%}
+        {%- for row in camp_rows -%}
+          {%- assign p = row | split: "|" -%}
+          {%- assign grad = "linear-gradient(160deg, " | append: p[1] | append: " 0%, " | append: p[2] | append: " 100%)" -%}
+          <div class="sp-camp soon" style="background: {{ grad }};">
+            <span class="sp-camp-badge soon-badge">Coming soon</span>
+            <span class="sp-camp-emoji sp-camp-inner">🧸</span>
+            <div class="sp-camp-inner">
+              <h3 class="sp-camp-name">{{ p[0] }}</h3>
+              <div class="sp-camp-sub">Dropping this summer</div>
+            </div>
           </div>
-        </a>
-        <a class="sp-camp pontiac" href="{{ section.settings.pontiac_link | default: '/collections/camp-pontiac' }}">
-          <span class="sp-camp-badge">Pre-order · Ships July</span>
-          <span class="sp-camp-emoji">🏕️</span>
-          <div>
-            <h3 class="sp-camp-name">Camp Pontiac</h3>
-            <div class="sp-camp-sub">Original + Glitter · $10</div>
-            <span class="sp-camp-cta">Shop Pontiac →</span>
-          </div>
-        </a>
+        {%- endfor -%}
       </div>
     </div>
   </section>
@@ -423,18 +519,6 @@
     </div>
   </section>
 
-  {%- comment -%}── COMING SOON MARQUEE ─{%- endcomment -%}
-  <section class="sp-soon" aria-label="Coming soon camps">
-    <div class="sp-soon-track">
-      {%- assign soon_camps = 'Wah-Nee,Westmont,Tyler Hill,Towanda,Timber Lake' | split: ',' -%}
-      {%- for i in (1..3) -%}
-        {%- for camp in soon_camps -%}
-          <span>{{ camp }} <em>· coming soon</em></span>
-        {%- endfor -%}
-      {%- endfor -%}
-    </div>
-  </section>
-
   {%- comment -%}── STORY TEASER ─{%- endcomment -%}
   <section class="sp-story">
     <div class="sp-wrap">
@@ -469,16 +553,15 @@
 
     { "type": "header", "content": "Hero" },
     { "type": "text", "id": "hero_pill", "label": "Pill text", "default": "Now taking pre-orders" },
-    { "type": "textarea", "id": "hero_heading", "label": "Heading (use <em> for accent)", "default": "Squeeze toys, made for <em>camp</em>." },
-    { "type": "textarea", "id": "hero_lede", "label": "Subheading", "default": "Tactile keepsakes for the kids who make summer summer — designed for one camp at a time." },
-    { "type": "text", "id": "hero_cta_text", "label": "Primary button text", "default": "Shop the camps" },
+    { "type": "textarea", "id": "hero_heading", "label": "Heading (use <em> for accent)", "default": "The squishy everyone wants. <em>Made for camp.</em>" },
+    { "type": "textarea", "id": "hero_lede", "label": "Subheading", "default": "Viral sugar squishies, designed camp by camp — where every squish helps send a kid to camp." },
+    { "type": "text", "id": "hero_cta_text", "label": "Primary button text", "default": "Shop the squishies" },
     { "type": "url", "id": "hero_cta_link", "label": "Primary button link" },
     { "type": "text", "id": "hero_cta2_text", "label": "Secondary button text", "default": "Read the mission" },
     { "type": "url", "id": "hero_cta2_link", "label": "Secondary button link" },
 
-    { "type": "header", "content": "Camp collections" },
-    { "type": "url", "id": "ihc_link", "label": "Camp IHC collection link" },
-    { "type": "url", "id": "pontiac_link", "label": "Camp Pontiac collection link" },
+    { "type": "header", "content": "Shop grid" },
+    { "type": "collection", "id": "shop_collection", "label": "Collection to show (defaults to 'shop')" },
 
     { "type": "header", "content": "Mission band" },
     { "type": "textarea", "id": "mission_body", "label": "Mission paragraph" },
