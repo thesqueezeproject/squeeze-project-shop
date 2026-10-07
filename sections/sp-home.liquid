@@ -235,6 +235,7 @@
     transition: background .15s ease;
   }
   .sp-prod-card:hover .sp-prod-btn { background: var(--sp-green-2); }
+  .sp-soon-single { max-width: 340px; margin: 32px auto 0; }
   .sp-soon-head { text-align: center; margin-top: 72px; }
   .sp-soon-title {
     font-family: Fraunces, 'Times New Roman', serif;
@@ -438,7 +439,7 @@
               {%- else -%}
                 <span class="sp-prod-fallback">🧸</span>
               {%- endif -%}
-              <span class="sp-prod-badge">Pre-order</span>
+              <span class="sp-prod-badge">New</span>
             </div>
             <div class="sp-prod-info">
               <h3 class="sp-prod-title">{{ product.title }}</h3>
@@ -454,26 +455,20 @@
         {%- endfor -%}
       </div>
 
-      {%- comment -%}── Coming-soon camps ─{%- endcomment -%}
+      {%- comment -%}── Coming-soon camp (Timber Lake) ─{%- endcomment -%}
       <div class="sp-soon-head">
-        <span class="sp-kicker">Dropping all summer</span>
-        <h3 class="sp-soon-title">More camps coming soon.</h3>
+        <span class="sp-kicker">Dropping soon</span>
+        <h3 class="sp-soon-title">One more camp on the way.</h3>
       </div>
-      <div class="sp-camps-grid">
-        {%- comment -%} fields: name | gradient-from | gradient-to {%- endcomment -%}
-        {%- assign camp_rows = "Camp Wah-Nee|#8B1A1A|#5a0f0f,Camp Westmont|#2d4480|#1a2744,Tyler Hill Camp|#1e3a8a|#122456,Camp Towanda|#2f6f6f|#1d4747,Timber Lake Camp|#1f5d2c|#0f3d1c" | split: "," -%}
-        {%- for row in camp_rows -%}
-          {%- assign p = row | split: "|" -%}
-          {%- assign grad = "linear-gradient(160deg, " | append: p[1] | append: " 0%, " | append: p[2] | append: " 100%)" -%}
-          <div class="sp-camp soon" style="background: {{ grad }};">
-            <span class="sp-camp-badge soon-badge">Coming soon</span>
-            <span class="sp-camp-emoji sp-camp-inner">🧸</span>
-            <div class="sp-camp-inner">
-              <h3 class="sp-camp-name">{{ p[0] }}</h3>
-              <div class="sp-camp-sub">Dropping this summer</div>
-            </div>
+      <div class="sp-soon-single">
+        <div class="sp-camp soon" style="background: linear-gradient(160deg, #1f5d2c 0%, #0f3d1c 100%);">
+          <span class="sp-camp-badge soon-badge">Coming soon</span>
+          <span class="sp-camp-emoji sp-camp-inner">🧸</span>
+          <div class="sp-camp-inner">
+            <h3 class="sp-camp-name">Timber Lake Camp</h3>
+            <div class="sp-camp-sub">Dropping soon — stay tuned</div>
           </div>
-        {%- endfor -%}
+        </div>
       </div>
     </div>
   </section>
